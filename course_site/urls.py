@@ -3,7 +3,7 @@ from django.urls import path, include
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('account/', include('user.urls', namespace='user')),
-    path('course/', include('course.urls', namespace='course')),
-    path('lesson/', include('lesson.urls', namespace='lesson')),
+    path('api/account/', include('user.urls', namespace='user')),
+    path('api/course/', include('course.urls', namespace='course')),
+    path('api/lesson/', include('lesson.urls', namespace='lesson')),
 ]

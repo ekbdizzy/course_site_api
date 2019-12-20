@@ -1,5 +1,4 @@
 from django.db import models
-from django.conf import settings
 from django.contrib.auth.models import AbstractBaseUser, PermissionsMixin
 from user.manager import UserManager
 
@@ -27,7 +26,7 @@ class User(AbstractBaseUser, PermissionsMixin):
     REQUIRED_FIELDS = ()
 
     def __str__(self):
-        return f"{self.email}"
+        return f'{"Teacher: " if self.is_teacher else ""}{self.full_name}{" - " if self.full_name else ""}{self.email}'
 
     class Meta:
         verbose_name = 'User'

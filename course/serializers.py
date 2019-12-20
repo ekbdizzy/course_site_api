@@ -1,0 +1,17 @@
+from rest_framework import serializers
+from .models import Course
+
+
+class CourseSerializer(serializers.ModelSerializer):
+    class Meta:
+        model = Course
+        fields = (
+            "id",
+            "title",
+            "description",
+            "start_date",
+            "price",
+            "duration",
+        )
+
+    duration = serializers.CharField(required=False, default='4 months')

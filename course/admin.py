@@ -1,9 +1,14 @@
 from django.contrib import admin
-from .models import Course, StudentOfCourse
+from .models import Course, StudentOnCourse, LessonOnCourse
 
 
 class StudentOfCourseInline(admin.TabularInline):
-    model = StudentOfCourse
+    model = StudentOnCourse
+    extra = 1
+
+
+class LessonOnCourseInline(admin.TabularInline):
+    model = LessonOnCourse
     extra = 1
 
 
@@ -18,4 +23,4 @@ class CourseAdmin(admin.ModelAdmin):
     )
     list_filter = ('start_date',)
 
-    inlines = (StudentOfCourseInline,)
+    inlines = (StudentOfCourseInline, LessonOnCourseInline)

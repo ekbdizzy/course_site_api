@@ -7,10 +7,9 @@ from .models import Lesson
 class LessonAdmin(admin.ModelAdmin):
     model = Lesson
     list_display = (
-        'course',
         'teacher',
         'title',
         'date_and_time',
     )
 
-    list_filter = ('course', 'teacher', 'date_and_time', )
+    list_filter = ('teacher', 'date_and_time',)
