@@ -5,6 +5,5 @@ course_site/env.py
 */migrations/
 */__pycache__/
 media/users/
-
 course/management/__pycache__/
 course/management/commands/__pycache__/

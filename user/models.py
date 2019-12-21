@@ -13,7 +13,6 @@ class User(AbstractBaseUser, PermissionsMixin):
     objects = UserManager()
 
     email = models.EmailField(unique=True, verbose_name='Email')
-    phone = models.CharField(unique=True, max_length=15, verbose_name='Phone')
     avatar = models.ImageField(upload_to=image_folder, blank=True)
     full_name = models.CharField(max_length=100, blank=True, verbose_name='Full name')
     date_joined = models.DateTimeField(auto_now_add=True)

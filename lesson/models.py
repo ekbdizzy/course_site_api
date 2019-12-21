@@ -4,6 +4,8 @@ from django.core.validators import ValidationError
 
 
 class Lesson(models.Model):
+    class Meta:
+        ordering = ('date_and_time',)
 
     def clean(self):
         if not self.teacher.is_teacher:

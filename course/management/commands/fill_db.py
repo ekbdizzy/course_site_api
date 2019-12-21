@@ -22,6 +22,11 @@ class Command(BaseCommand):
 
         create_factory(UserFactory, 50)
         create_factory(TeacherFactory, 15)
+
+        for user in User.objects.filter(is_superuser=False):
+            user.set_password('1')
+            user.save()
+
         create_factory(LessonFactory, 100)
         create_factory(CourseFactory, 10)
         create_factory(LessonOnCourseFactory, 100)

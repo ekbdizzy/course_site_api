@@ -1,0 +1,91 @@
+{% load static %}
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap.css' %}"/>
+    <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap-grid.css' %}"/>
+    <link rel="stylesheet" href="{% static 'bootstrap-4.0.0-dist/css/bootstrap-reboot.css' %}"/>
+    <title>Django rest API sample</title>
+</head>
+<body>
+<div class="container">
+    <h2 class="h2 mt-3">API samples</h2>
+
+    <div class="row">
+        <h4 class="h4 bg-light w-100 mt-4 p-2">
+            Course List
+        </h4>
+        <div class="p-3">
+            <a href="{% url 'course:list' %}" target="_blank">localhost:8000/api/course/list</a>
+        </div>
+    </div>
+
+    <div class="row">
+        <h4 class="h4 bg-light w-100 mt-4 p-2">
+            Course detail with lessons sorted by data
+        </h4>
+        <div class="p-3">
+            localhost:8000/api/course/detail/(course_id:int)
+        </div>
+    </div>
+
+    <div class="row">
+        <h4 class="h4 bg-light w-100 mt-4 p-2">
+            Register new user (POST only)
+        </h4>
+        <div class="p-3 col-12">
+            <a href="{% url 'user:register' %}" target="_blank">localhost:8000/api/user/register</a>
+        </div>
+        <pre class="mt-3">Sample:
+{
+  "full_name": "Aleksey",
+  "email": "aleksey@mail.ru",
+  "password": "password"
+}
+        </pre>
+    </div>
+
+    <div class="row">
+        <h4 class="h4 bg-light w-100 mt-4 p-2">
+            Login user (POST only)
+        </h4>
+        <div class="p-3 col-12">
+            <a href="{% url 'user:login' %}" target="_blank">localhost:8000/api/user/login</a>
+        </div>
+        <pre class="mt-3">Sample:
+{
+  "email": "aleksey@mail.ru",
+  "password": "password"
+}
+        </pre>
+    </div>
+
+    <div class="row">
+        <h4 class="h4 bg-light w-100 mt-4 p-2">
+            Students on course (GET)
+        </h4>
+        <div class="p-3">
+            localhost:8000/api/course/detail/(course_id:int)/students
+        </div>
+    </div>
+
+    <div class="row">
+        <h4 class="h4 bg-light w-100 mt-4 p-2">
+            Add student on course (POST)
+        </h4>
+        <div class="p-3">
+            localhost:8000/api/course/detail/(course_id:int)/students
+        </div>
+
+        <pre class="mt-3">Sample:
+{
+  "email": "aleksey@mail.ru",
+}
+        </pre>
+    </div>
+</div>
+</body>
+<script src="{% static 'bootstrap-4.0.0-dist/js/bootstrap.bundle.js' %}"></script>
+</html>

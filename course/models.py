@@ -2,13 +2,13 @@ from django.db import models
 from user.models import User
 from lesson.models import Lesson
 
-
 STATUSES_OF_STUDENT = (
     ('not started', 'not started'),
     ('finished', 'finished'),
     ('in progress', 'in progress'),
     ('failed', 'failed'),
 )
+
 
 # Create your models here.
 class Course(models.Model):

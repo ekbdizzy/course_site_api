@@ -16,7 +16,6 @@ class UserFactory(django.DjangoModelFactory):
         model = User
 
     email = Faker('email')
-    phone = Faker('phone_number')
     avatar = django.ImageField(
         width=1000,
         height=1000,
