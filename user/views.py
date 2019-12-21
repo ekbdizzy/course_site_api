@@ -4,6 +4,7 @@ from rest_framework.views import APIView
 from django.contrib.auth import authenticate, login
 
 from .models import User
+from .tasks import user_is_registered_email
 from .serializers import UserSerializer, UserAuthSerializer
 
 
@@ -19,8 +20,11 @@ class RegisterUserView(APIView):
                 return Response({"message": "Email is already registered"}, status=status.HTTP_400_BAD_REQUEST)
 
             serializer.create(serializer.validated_data)
-            return Response(serializer.data, status=status.HTTP_201_CREATED)
 
+            # celery send email
+            user_is_registered_email.delay(email)
+
+            return Response(serializer.data, status=status.HTTP_201_CREATED)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
