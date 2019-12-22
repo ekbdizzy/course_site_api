@@ -1,4 +1,7 @@
 from rest_framework import serializers, status
+from rest_framework.authtoken.models import Token
+from rest_framework.generics import CreateAPIView
+
 from .models import User
 
 
@@ -28,8 +31,8 @@ class UserSerializer(StudentSerializer):
             'password',
         )
 
-    password = serializers.CharField(required=True)
-    write_only_fields = ('password',)
+    password = serializers.CharField(required=True, write_only=True)
+    full_name = serializers.CharField(required=True)
 
     def create(self, validated_data):
         user = User.objects.create(
@@ -38,10 +41,11 @@ class UserSerializer(StudentSerializer):
         )
         user.set_password(validated_data['password'])
         user.save()
+        Token.objects.create(user=user)
         return user
 
 
-class UserAuthSerializer(StudentSerializer):
+class UserAuthSerializer(UserSerializer):
     class Meta:
         model = User
 

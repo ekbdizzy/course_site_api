@@ -1,4 +1,6 @@
 from django.core.management import BaseCommand
+from rest_framework.authtoken.models import Token
+
 from user.models import User
 from user.factory import UserFactory, TeacherFactory
 from lesson.models import Lesson
@@ -25,6 +27,8 @@ class Command(BaseCommand):
 
         for user in User.objects.filter(is_superuser=False):
             user.set_password('1')
+            Token.objects.create(user=user)
+
             user.save()
 
         create_factory(LessonFactory, 100)

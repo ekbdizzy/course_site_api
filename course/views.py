@@ -2,6 +2,8 @@ from django.shortcuts import render, get_object_or_404
 from rest_framework.views import APIView
 from rest_framework import status
 from rest_framework.response import Response
+from rest_framework.decorators import permission_classes
+from rest_framework.permissions import AllowAny
 
 from user.models import User
 from .models import Course, StudentOnCourse
@@ -11,6 +13,7 @@ from user.serializers import StudentSerializer
 
 
 # Create your views here.
+@permission_classes((AllowAny,))
 class CoursesListView(APIView):
 
     def get(self, request):
@@ -32,6 +35,7 @@ class CoursesListView(APIView):
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+@permission_classes((AllowAny,))
 class CourseDetailView(APIView):
 
     def get(self, request, pk):

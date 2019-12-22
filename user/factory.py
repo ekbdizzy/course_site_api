@@ -1,4 +1,5 @@
 from factory import django, Faker, fuzzy
+
 from .models import User
 
 COLORS = (

@@ -7,10 +7,13 @@ Samples of using on main page. User model is changed to custom, USERNAME = email
 pip install -r requirements.txt
 ~~~~
 
+You need also RabbitMQ for Celery: https://www.rabbitmq.com/
+~~~~
+rabbitmq-server
+~~~~
+
 ### Create and fill database
 ~~~~
-python manage.py makemigrations
-python manage.py migrate
 python manage.py fill_db  # create models for categories and products using factory_boy 
 ~~~~
 
