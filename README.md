@@ -1,6 +1,6 @@
 ## Django Rest Framework API
 Simple API for site with courses on DRF.
-Samples of using on main page. User model is changed to custom, USERNAME = email.
+Samples of using on main page. <br>User model is changed to custom, USERNAME = email.
 
 ### Requirements:
 ~~~~
