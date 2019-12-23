@@ -12,7 +12,6 @@ class CourseSerializer(serializers.ModelSerializer):
             "start_date",
             "price",
             "duration",
-            # "lessons",
         )
 
     duration = serializers.CharField(required=False)

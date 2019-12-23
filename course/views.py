@@ -12,7 +12,6 @@ from lesson.serializers import LessonSerializer
 from user.serializers import StudentSerializer
 
 
-# Create your views here.
 @permission_classes((AllowAny,))
 class CoursesListView(APIView):
 

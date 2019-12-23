@@ -1,5 +1,4 @@
-from django.shortcuts import redirect
-from django.urls import path, reverse
+from django.urls import path
 from .views import CreateUserView, AuthenticateUserView
 from django.contrib.auth.views import LogoutView
 

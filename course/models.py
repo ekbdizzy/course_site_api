@@ -10,7 +10,6 @@ STATUSES_OF_STUDENT = (
 )
 
 
-# Create your models here.
 class Course(models.Model):
     title = models.CharField(max_length=250, default='')
     description = models.TextField(max_length=2000, default='')

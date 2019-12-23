@@ -7,3 +7,6 @@ course_site/env.py
 media/users/
 course/management/__pycache__/
 course/management/commands/__pycache__/
+static/admin/
+static/django_extensions/
+static/rest_framework/

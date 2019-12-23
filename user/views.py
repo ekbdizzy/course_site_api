@@ -10,7 +10,6 @@ from .tasks import user_is_registered_email
 from .serializers import UserSerializer, UserAuthSerializer
 
 
-# Create your views here.
 @permission_classes((AllowAny,))
 class CreateUserView(APIView):
     authentication_classes = ()
