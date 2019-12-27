@@ -1,17 +1,11 @@
 from datetime import date
 from factory import django, Faker, fuzzy
-import random
 
 from lesson.models import Lesson
 from user.models import User
 from .models import Course, StudentOnCourse, LessonOnCourse
 
-
-def random_price():
-    return random.randrange(20000, 60000, 2000)
-
-
-DURATION_CHOISES = (
+DURATION_CHOICES = (
     '1 month',
     '2 months',
     '3 months',
@@ -36,7 +30,7 @@ class CourseFactory(django.DjangoModelFactory):
     description = Faker('text')
     start_date = fuzzy.FuzzyDate(date(2019, 1, 1), date(2019, 12, 12))
     price = fuzzy.FuzzyChoice(range(20000, 60000, 2000))
-    duration = fuzzy.FuzzyChoice(DURATION_CHOISES)
+    duration = fuzzy.FuzzyChoice(choices=DURATION_CHOICES)
 
 
 class StudentOnCourseFactory(django.DjangoModelFactory):
@@ -46,7 +40,7 @@ class StudentOnCourseFactory(django.DjangoModelFactory):
     student = fuzzy.FuzzyChoice(User.objects.filter(is_teacher=False))
     course = fuzzy.FuzzyChoice(Course.objects.all())
     course_is_paid = fuzzy.FuzzyChoice((True, False))
-    status = fuzzy.FuzzyChoice(STATUSES_OF_STUDENT)
+    status = fuzzy.FuzzyChoice(choices=STATUSES_OF_STUDENT)
 
 
 class LessonOnCourseFactory(django.DjangoModelFactory):

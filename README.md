@@ -17,4 +17,40 @@ rabbitmq-server
 python manage.py fill_db  # create models for categories and products using factory_boy 
 ~~~~
 
+### API request samples
 
+List with all courses (GET)
+~~~
+localhost:8000/api/course/list
+~~~
+
+Detail view to course by id (GET)
+~~~
+localhost:8000/api/course/detail/(course_id:int)
+~~~
+
+Register new user (POST)
+~~~
+url: localhost:8000/api/user/register
+
+request: { "full_name": "Aleksey",
+           "email": "aleksey@mail.ru",
+           "password": "password" }
+~~~
+Login user (POST)
+~~~
+url: localhost:8000/api/user/login
+
+request: { "email": "aleksey@mail.ru",
+           "password": "password" }
+~~~
+All students on course (GET)
+~~~
+localhost:8000/api/course/detail/(course_id:int)/students
+~~~ 
+Add student to course (POST)
+~~~
+url: localhost:8000/api/course/detail/(course_id:int)/students
+
+request: { "email": "aleksey@mail.ru" }
+~~~

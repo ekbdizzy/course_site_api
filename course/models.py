@@ -2,13 +2,6 @@ from django.db import models
 from user.models import User
 from lesson.models import Lesson
 
-STATUSES_OF_STUDENT = (
-    ('not started', 'not started'),
-    ('finished', 'finished'),
-    ('in progress', 'in progress'),
-    ('failed', 'failed'),
-)
-
 
 class Course(models.Model):
     title = models.CharField(max_length=250, default='')
@@ -22,8 +15,21 @@ class Course(models.Model):
     def __str__(self):
         return f"{self.title}: {self.start_date}"
 
+    def get_students_by_status(self, status):
+        return self.students.filter(student__status=status)
+
+    def get_students_paid_for_course(self):
+        return self.students.filter(student__course_is_paid=True)
+
 
 class StudentOnCourse(models.Model):
+    STATUSES_OF_STUDENT = (
+        ('not started', 'not started'),
+        ('finished', 'finished'),
+        ('in progress', 'in progress'),
+        ('failed', 'failed'),
+    )
+
     student = models.ForeignKey(User, on_delete=models.CASCADE, related_name='student')
     course = models.ForeignKey(Course, on_delete=models.CASCADE, related_name='course_from_student')
     course_is_paid = models.BooleanField(default=False)

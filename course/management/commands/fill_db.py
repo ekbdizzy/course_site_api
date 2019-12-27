@@ -15,7 +15,13 @@ def create_factory(factory, quantity: int):
 
 
 class Command(BaseCommand):
+
+    @staticmethod
+    def get_query_set():
+        return User.objects.filter(is_superuser=False)
+
     def handle(self, *args, **options):
+        Token.objects.all().delete()
         User.objects.filter(is_superuser=False).delete()
         Lesson.objects.all().delete()
         Course.objects.all().delete()

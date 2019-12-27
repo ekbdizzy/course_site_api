@@ -9,6 +9,8 @@ from .models import User
 from .tasks import user_is_registered_email
 from .serializers import UserSerializer, UserAuthSerializer
 
+from utils.logger import logging
+
 
 @permission_classes((AllowAny,))
 class CreateUserView(APIView):
@@ -28,6 +30,8 @@ class CreateUserView(APIView):
 
             data = serializer.data
             return Response(data, status=status.HTTP_201_CREATED)
+
+        logging.error(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -53,6 +57,9 @@ class AuthenticateUserView(APIView):
                         data['token'] = user.auth_token.key
                         return Response(data, status=status.HTTP_202_ACCEPTED)
 
+                logging.error(serializer.errors)
                 return Response({"message": "Password is incorrect"}, status=status.HTTP_400_BAD_REQUEST)
+
             except User.DoesNotExist:
+                logging.error(serializer.errors)
                 return Response({"message": "User is not registered"}, status=status.HTTP_400_BAD_REQUEST)

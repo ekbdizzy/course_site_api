@@ -11,6 +11,8 @@ from .serializers import CourseSerializer
 from lesson.serializers import LessonSerializer
 from user.serializers import StudentSerializer
 
+from utils.logger import logging
+
 
 @permission_classes((AllowAny,))
 class CoursesListView(APIView):
@@ -31,6 +33,8 @@ class CoursesListView(APIView):
                 )
             serializer.save()
             return Response(serializer.data, status=status.HTTP_201_CREATED)
+
+        logging.error(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
@@ -57,6 +61,8 @@ class CourseDetailView(APIView):
         if serializer.is_valid():
             serializer.save()
             return Response(request.data)
+
+        logging.error(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
     def delete(self, request, pk):
@@ -100,7 +106,9 @@ class StudentsOnCourseView(APIView):
                 user_serializer = StudentSerializer(students, many=True)
                 return Response(user_serializer.data, status.HTTP_201_CREATED)
 
-            except User.DoesNotExist as e:
+            except User.DoesNotExist:
+                logging.error("Student does not exists")
                 return Response({"error": "Student does not exists"}, status=status.HTTP_400_BAD_REQUEST)
 
+        logging.error(serializer.errors)
         return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)

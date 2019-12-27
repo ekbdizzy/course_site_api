@@ -15,6 +15,7 @@ ipython==7.10.2
 ipython-genutils==0.2.0
 jedi==0.15.2
 kombu==4.6.7
+loguru==0.4.0
 more-itertools==8.0.2
 parso==0.5.2
 pexpect==4.7.0

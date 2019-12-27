@@ -10,3 +10,5 @@ course/management/commands/__pycache__/
 static/admin/
 static/django_extensions/
 static/rest_framework/
+db_profile.sqlite3
+*.log
