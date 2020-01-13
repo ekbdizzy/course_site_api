@@ -26,7 +26,7 @@ class CreateUserView(APIView):
             user = serializer.create(serializer.validated_data)
 
             # celery send email
-            user_is_registered_email.delay(email)
+            # user_is_registered_email.delay(email)
 
             data = serializer.data
             return Response(data, status=status.HTTP_201_CREATED)
