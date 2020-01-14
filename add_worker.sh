@@ -1,0 +1,1 @@
+celery -A course_site worker -l info

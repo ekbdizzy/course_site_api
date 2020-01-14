@@ -39,5 +39,6 @@ class Command(BaseCommand):
 
         create_factory(LessonFactory, 100)
         create_factory(CourseFactory, 10)
+
         create_factory(LessonOnCourseFactory, 100)
         create_factory(StudentOnCourseFactory, 50)

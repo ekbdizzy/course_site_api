@@ -20,6 +20,7 @@ class CoursesListView(APIView):
     def get(self, request):
         courses = Course.objects.all()
         serializer = CourseSerializer(courses, many=True)
+
         return Response(serializer.data)
 
     def post(self, request):

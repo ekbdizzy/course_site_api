@@ -17,6 +17,12 @@ rabbitmq-server
 python manage.py fill_db  # create models for categories and products using factory_boy 
 ~~~~
 
+### Tests
+~~~
+sh runtest.sh  # result in console
+sh runtest_html.sh  # full result in html (./htmlcov/)
+
+
 ### API request samples
 
 List with all courses (GET)

@@ -4,10 +4,17 @@ from lesson.models import Lesson
 
 
 class Course(models.Model):
+
+    def image_folder(self, filename):
+        image_folder_name = self.title
+        filename = '.'.join([image_folder_name, filename.split('.')[-1]])
+        return f'course/{image_folder_name}/{filename}'
+
     title = models.CharField(max_length=250, default='')
     description = models.TextField(max_length=2000, default='')
     start_date = models.DateField(auto_created=False, auto_now=False, blank=True)
     price = models.DecimalField(max_digits=6, default=0, decimal_places=0)
+    icon = models.ImageField(upload_to=image_folder, blank=True)
     duration = models.CharField(max_length=250)
     students = models.ManyToManyField(User, through='StudentOnCourse', related_name='students')
     lessons = models.ManyToManyField(Lesson, through='LessonOnCourse', related_name='lessons')

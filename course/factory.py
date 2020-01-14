@@ -31,6 +31,11 @@ class CourseFactory(django.DjangoModelFactory):
     start_date = fuzzy.FuzzyDate(date(2019, 1, 1), date(2019, 12, 12))
     price = fuzzy.FuzzyChoice(range(20000, 60000, 2000))
     duration = fuzzy.FuzzyChoice(choices=DURATION_CHOICES)
+    icon = django.ImageField(
+        width=1000,
+        height=1000,
+        image_format='png'
+    )
 
 
 class StudentOnCourseFactory(django.DjangoModelFactory):

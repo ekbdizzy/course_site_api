@@ -5,6 +5,8 @@ course_site/env.py
 */migrations/
 */__pycache__/
 media/users/
+media/course/
+media/course_icon/
 course/management/__pycache__/
 course/management/commands/__pycache__/
 static/admin/
@@ -12,3 +14,6 @@ static/django_extensions/
 static/rest_framework/
 db_profile.sqlite3
 *.log
+.coverage
+htmlcov/
+*/*/__pycache__/
