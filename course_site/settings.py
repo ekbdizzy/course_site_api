@@ -1,10 +1,10 @@
 import os
-import course_site.env as env
+import course_site.my_env as env
 
 DEBUG = env.DEBUG
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = env.SECRET_KEY
-ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*']
 AUTH_USER_MODEL = 'user.User'
 SITE_ID = 1
 CORS_ORIGIN_ALLOW_ALL = True

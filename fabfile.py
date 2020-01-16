@@ -50,7 +50,7 @@ def install_project_code(c):
         if c.run(f'test -d {ROOT}', warn=True).failed:
             c.run(f'mkdir -p {ROOT}')
 
-        if c.run(f'test -d {PROJECT_PATH}/.gitignore', warn=True).failed:
+        if c.run(f'test -d {PROJECT_PATH}', warn=True).failed:
             with c.cd('/home/root'):
                 c.run(f'git clone {GIT_REPO}')
         else:
@@ -118,23 +118,29 @@ def collectstatic(c):
         with c.cd(PROJECT_PATH):
             c.run(f'{VENV_PATH}/bin/python manage.py collectstatic')
 
+
 #
 # def npm_run_build():
 #     with cd(PROJECT_PATH):
 #         run('npm run build')
 #
 #
-# def create_superuser():
-#     with cd(PROJECT_PATH):
-#         command = f'manage.py createsuperuser --username {USER_NAME} --email {USER_EMAIL}'
-#         run(f'{VENV_PATH}/bin/python {command}')
-#
-#
-# def restart_all():
-#     sudo('systemctl daemon-reload')
-#     sudo('systemctl reload nginx')
-#     sudo('systemctl restart uwsgi')
-#
+
+@task
+def createsuperuser(c):
+    with Connection(host=HOST) as c:
+        with c.cd(PROJECT_PATH):
+            command = f'manage.py createsuperuser --username {USER_NAME} --email {USER_EMAIL}'
+            c.run(f'{VENV_PATH}/bin/python {command}')
+
+
+@task
+def restart_all(c):
+    with Connection(host=HOST) as c:
+        c.sudo('systemctl daemon-reload')
+        c.sudo('systemctl reload nginx')
+        c.sudo('systemctl restart uwsgi')
+
 #
 # def bootstrap():
 #     install_packages()

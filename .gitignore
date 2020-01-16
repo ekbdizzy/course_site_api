@@ -1,7 +1,7 @@
 .idea/
 db.sqlite3
 venv/
-course_site/env.py
+course_site/my_env.py
 */migrations/
 */__pycache__/
 media/users/
