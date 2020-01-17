@@ -80,7 +80,8 @@ def install_pip_requirements(c):
 #     with cd(PROJECT_PATH):
 #         sudo('npm install')
 #
-#
+
+# TODO
 @task
 def configure_uwsgi(c):
     with Connection(host=HOST) as c:
@@ -89,13 +90,14 @@ def configure_uwsgi(c):
         c.put('fab_templates/uwsgi.ini', '/etc/uwsgi/sites/course_site_api.ini')
         c.put('fab_templates/uwsgi.service', '/etc/systemd/system/uwsgi.service')
 
-
+# TODO
 @task
 def configure_nginx(c):
     with Connection(host=HOST) as c:
         if c.run(f'test -d /etc/nginx/sites-enabled/default', warn=True).failed:
             c.sudo('rm /etc/nginx/sites-enabled/default')
         c.put('fab_templates/nginx.conf', '/etc/nginx/sites-enabled/course_site_api.conf')
+
 
 
 @task
@@ -138,8 +140,8 @@ def createsuperuser(c):
 def restart_all(c):
     with Connection(host=HOST) as c:
         c.sudo('systemctl daemon-reload')
+        c.sudo('systemctl restart gunicorn')
         c.sudo('systemctl reload nginx')
-        c.sudo('systemctl restart uwsgi')
 
 #
 # def bootstrap():

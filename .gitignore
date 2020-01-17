@@ -5,8 +5,6 @@ course_site/my_env.py
 */migrations/
 */__pycache__/
 media/users/
-media/course/
-media/course_icon/
 course/management/__pycache__/
 course/management/commands/__pycache__/
 static/admin/
