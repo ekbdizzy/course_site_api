@@ -21,18 +21,18 @@ python manage.py fill_db  # create models for categories and products using fact
 ~~~
 sh runtest.sh  # result in console
 sh runtest_html.sh  # full result in html (./htmlcov/)
-
+~~~
 
 ### API request samples
 
-List with all courses (GET)
+Get list with all courses (GET)
 ~~~
 localhost:8000/api/course/list
 ~~~
 
 Detail view to course by id (GET)
 ~~~
-localhost:8000/api/course/detail/(course_id:int)
+localhost:8000/api/course/detail/<course_id:int>
 ~~~
 
 Register new user (POST)

@@ -1,24 +1,21 @@
 import os
 from fabric import task
-from fabric.connection import Connection, Config
-
-# run, sudo, env, cd
+from fabric.connection import Connection
 from fab_templates import fab_config as config
 
 HOST = 'root@67.205.130.122'
-
 c = Connection(host=HOST)
 
 ROOT = config.ROOT
 GIT_REPO = config.GIT_REPO
 USER_NAME = config.USER_NAME
 USER_EMAIL = config.USER_EMAIL
-
 PROJECT_NAME = 'course_site_api'
 PROJECT_PATH = os.path.join(ROOT, PROJECT_NAME)
 VENV_PATH = os.path.join(PROJECT_PATH, 'venv')
 
 
+# test connection
 @task
 def hello(c):
     with Connection(host=HOST) as c:
@@ -58,8 +55,6 @@ def install_project_code(c):
                 c.run('git pull')
 
 
-#
-
 @task
 def create_venv(c):
     with Connection(host=HOST) as c:
@@ -75,13 +70,7 @@ def install_pip_requirements(c):
             c.run(f'{VENV_PATH}/bin/python3.7 -m pip install -r requirements.txt -U')
 
 
-#
-# def npm_install():
-#     with cd(PROJECT_PATH):
-#         sudo('npm install')
-#
-
-# TODO
+# TODO change to Gunicorn
 @task
 def configure_uwsgi(c):
     with Connection(host=HOST) as c:
@@ -90,14 +79,14 @@ def configure_uwsgi(c):
         c.put('fab_templates/uwsgi.ini', '/etc/uwsgi/sites/course_site_api.ini')
         c.put('fab_templates/uwsgi.service', '/etc/systemd/system/uwsgi.service')
 
-# TODO
+
+# TODO rebuild templates for Gunicorn
 @task
 def configure_nginx(c):
     with Connection(host=HOST) as c:
         if c.run(f'test -d /etc/nginx/sites-enabled/default', warn=True).failed:
             c.sudo('rm /etc/nginx/sites-enabled/default')
         c.put('fab_templates/nginx.conf', '/etc/nginx/sites-enabled/course_site_api.conf')
-
 
 
 @task
@@ -121,13 +110,6 @@ def collectstatic(c):
             c.run(f'{VENV_PATH}/bin/python manage.py collectstatic')
 
 
-#
-# def npm_run_build():
-#     with cd(PROJECT_PATH):
-#         run('npm run build')
-#
-#
-
 @task
 def createsuperuser(c):
     with Connection(host=HOST) as c:
@@ -143,18 +125,16 @@ def restart_all(c):
         c.sudo('systemctl restart gunicorn')
         c.sudo('systemctl reload nginx')
 
-#
-# def bootstrap():
-#     install_packages()
-#     install_project_code()
-#     create_venv()
-#     install_pip_requirements()
-#     # npm_install()
-#     configure_uwsgi()
-#     configure_nginx()
-#     create_env_config()
-#     migrate_database()
-#     collectstatic()
-#     # npm_run_build()
-#     create_superuser()
-#     restart_all()
+
+def bootstrap():
+    install_packages()
+    install_project_code()
+    create_venv()
+    install_pip_requirements()
+    configure_uwsgi()
+    configure_nginx()
+    create_env_config()
+    migrate_database()
+    collectstatic()
+    createsuperuser()
+    restart_all()
