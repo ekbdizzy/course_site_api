@@ -5,9 +5,14 @@ from django.contrib.auth import authenticate, login
 from rest_framework.decorators import permission_classes
 from rest_framework.permissions import AllowAny
 
+from rest_framework.authentication import SessionAuthentication, BasicAuthentication
+from rest_framework.permissions import IsAuthenticated
+
 from .models import User
+from course.models import Course
+from course.serializers import CourseSerializer
 from .tasks import user_is_registered_email
-from .serializers import UserSerializer, UserAuthSerializer
+from .serializers import UserSerializer, UserAuthSerializer, UserProfileSerializer
 
 from utils.logger import logging
 
@@ -63,3 +68,23 @@ class AuthenticateUserView(APIView):
             except User.DoesNotExist:
                 logging.error(serializer.errors)
                 return Response({"message": "User is not registered"}, status=status.HTTP_400_BAD_REQUEST)
+
+
+class UserDetailView(APIView):
+    # authentication_classes = [SessionAuthentication, BasicAuthentication]
+    # permission_classes = [IsAuthenticated]
+
+    def get(self, request):
+
+        if request.user.is_authenticated:
+            user = request.user
+            users_courses = Course.objects.filter(students=user)
+            course_serializer = CourseSerializer(users_courses, many=True)
+            user_serializer = UserProfileSerializer(user)
+
+            course_data = course_serializer.data
+            user_data = user_serializer.data
+            return Response(data=(course_data, user_data), status=status.HTTP_200_OK)
+
+        else:
+            return Response({"message": "User is not authenticated"}, status=status.HTTP_400_BAD_REQUEST)

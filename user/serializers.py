@@ -52,3 +52,14 @@ class UserAuthSerializer(UserSerializer):
             'email',
             'password'
         )
+
+
+class UserProfileSerializer(UserSerializer):
+    class Meta:
+        model = User
+
+        fields = (
+            'full_name',
+            'email',
+            'avatar'
+        )
