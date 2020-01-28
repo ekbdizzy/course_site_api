@@ -61,5 +61,16 @@ class UserProfileSerializer(UserSerializer):
         fields = (
             'full_name',
             'email',
-            'avatar'
+            # 'avatar'
         )
+
+        email = serializers.CharField(required=False)
+        full_name = serializers.CharField(required=False)
+        # avatar = serializers.ImageField(required=False)
+
+    def update(self, instance, validated_data):
+        instance.email = validated_data.get('email', instance.email)
+        instance.full_name = validated_data.get('full_name', instance.full_name)
+        # instance.avatar = validated_data.get('avatar', instance.avatar)
+        instance.save()
+        return instance

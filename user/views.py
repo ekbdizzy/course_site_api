@@ -71,8 +71,8 @@ class AuthenticateUserView(APIView):
 
 
 class UserDetailView(APIView):
-    # authentication_classes = [SessionAuthentication, BasicAuthentication]
-    # permission_classes = [IsAuthenticated]
+    authentication_classes = [SessionAuthentication, BasicAuthentication]
+    permission_classes = [IsAuthenticated]
 
     def get(self, request):
 
@@ -88,3 +88,21 @@ class UserDetailView(APIView):
 
         else:
             return Response({"message": "User is not authenticated"}, status=status.HTTP_400_BAD_REQUEST)
+
+    def post(self, request):
+
+        print(request.user)
+
+        if request.user.is_authenticated:
+            user = request.user
+
+            serializer = UserProfileSerializer(data=request.data)
+            if serializer.is_valid():
+                serializer.update(user, serializer.validated_data)
+                data = serializer.data
+                return Response(data, status=status.HTTP_200_OK)
+
+            else:
+                return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
+
+        return Response({"message": "User is not authenticated"}, status=status.HTTP_400_BAD_REQUEST)
