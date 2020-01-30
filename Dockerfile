@@ -5,4 +5,3 @@ WORKDIR /project
 ADD requirements.txt /project
 RUN pip3 install -r requirements.txt
 ADD . /project
-ADD ./course_site/sample_env.py /project/course_site/my_env.py
