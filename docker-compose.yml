@@ -1,0 +1,22 @@
+version: "3"
+
+services:
+  web:
+    depends_on:
+      - db
+    build:
+      .
+    ports:
+      - "8000:8000"
+    command:
+      python manage.py runserver 0.0.0.0:8000
+    volumes:
+      - .:/project
+    environment:
+      DATABASE_URL: postgres://postgres@db/postgres
+
+  db:
+    image: postgres:10.11
+    ports:
+      - 5432:5432
+    restart: always

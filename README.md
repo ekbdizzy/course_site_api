@@ -2,6 +2,12 @@
 Simple API for site with courses on DRF.
 Samples of using on main page. <br>User model is changed to custom, USERNAME = email.
 
+### Docker:
+~~~
+bash docker-deploy.sh
+~~~
+
+
 ### Requirements:
 ~~~~
 pip install -r requirements.txt
