@@ -1,6 +1,16 @@
 import os
 import course_site.my_env as env
 
+import sentry_sdk
+from sentry_sdk.integrations.django import DjangoIntegration
+
+sentry_sdk.init(
+    dsn="https://b58036f487604c5293c2d1d4f60ebeda@sentry.io/2102786",
+    integrations=[DjangoIntegration()],
+    send_default_pii=True
+)
+
+
 DEBUG = env.DEBUG
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = env.SECRET_KEY
