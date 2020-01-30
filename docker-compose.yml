@@ -9,7 +9,7 @@ services:
     ports:
       - "8000:8000"
     command:
-      python manage.py runserver 0.0.0.0:8000
+      bash django_operations.sh
     volumes:
       - .:/project
     environment:
