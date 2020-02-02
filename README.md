@@ -25,8 +25,7 @@ python manage.py fill_db  # create models for categories and products using fact
 
 ### Tests
 ~~~
-sh runtest.sh  # result in console
-sh runtest_html.sh  # full result in html (./htmlcov/)
+pytest
 ~~~
 
 ### API request samples
