@@ -14,4 +14,6 @@ db_profile.sqlite3
 *.log
 .coverage
 htmlcov/
+cov_html/
 */*/__pycache__/
+.pytest_cache/

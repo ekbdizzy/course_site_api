@@ -10,7 +10,6 @@ sentry_sdk.init(
     send_default_pii=True
 )
 
-
 DEBUG = env.DEBUG
 BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 SECRET_KEY = env.SECRET_KEY
